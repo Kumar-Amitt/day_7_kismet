@@ -13,37 +13,101 @@
 // TODO: Step 12 - Run the app and try to figure out what code you need to add to this file to make the story change when you press on the choice buttons.
 
 // TODO: Step 13 -  Create a method called buttonShouldBeVisible() which checks to see if storyNumber is 0 or 1 or 2 (when both buttons should show choices) and return true if that is the case, else it should return false.
+import 'package:day_6_kismet/story.dart';
 
-//  List<Story> storyData = [
-//    Story(
-//        storyTitle:
-//            'You have gone on a trek with your friends but got lost in the forest. You don\'t have any devices and it is now pitch dark. You are wandering in hope to see another human, and suddenly you see a wooden cabin with some fire light. Would you go and knock the door of the cabin?".',
-//        choice1: 'I\'ll go to the cabin and ask for help',
-//        choice2:
-//            'I\'ll ignore the cabin because who possibly can live in the middle of a Jungle'),
-//    Story(
-//        storyTitle:
-//            'A guy with plastic apron covered with blood and a huge knife in his hand opens the door',
-//        choice1: 'Ask him if that\'s human blood.',
-//        choice2: 'Ignore the attire and ask if you can get some water'),
-//    Story(
-//        storyTitle: 'He tells you it is Human blood of a very bad person',
-//        choice1: 'You believe him and ask if he can help you?',
-//        choice2: 'You panic, and run away back to jungle'),
-//    Story(
-//        storyTitle:
-//            'You are trapped in the jungle trying to find a way out, but it is end of your journey as a poisonous snake bites you and you die painfully',
-//        choice1: 'Restart',
-//        choice2: ''),
-//    Story(
-//        storyTitle:
-//            'He goes inside, you act smart and try to peek in the cabin. You follow the blood trail to the back of cabin and discover one of your friends lying there. As you turn to run, a sharp pain arises in your shoulder and everything goes dark. You have escaped from this world',
-//        choice1: 'Restart',
-//        choice2: ''),
-//    Story(
-//        storyTitle:
-//            'He gives you sleeping bag, put a bonfire to keep you warm, gives you food and you both bond over anatomy of human body. In morning he takes you out of jungle and promises you to invite for his next \'hunt\'',
-//        choice1: 'Restart',
-//        choice2: '')
-//  ];
+class StoryBrain {
+  int storyNumber = 0;
+  List<Story> storyData = [
+    Story(
+        storyTitle:
+            'You have gone on a trek with your friends but got lost in the forest. You don\'t have any devices and it is now pitch dark. You are wandering in hope to see another human, and suddenly you see a wooden cabin with some fire light. Would you go and knock the door of the cabin?".',
+        choice1: 'I\'ll go to the cabin and ask for help',
+        choice2:
+            'I\'ll ignore the cabin because who possibly can live in the middle of a Jungle'),
+    Story(
+        storyTitle:
+            'A guy with plastic apron covered with blood and a huge knife in his hand opens the door',
+        choice1: 'Ask him if that\'s human blood.',
+        choice2: 'Ignore the attire and ask if you can get some water'),
+    Story(
+        storyTitle: 'He tells you it is Human blood of a very bad person',
+        choice1: 'You believe him and ask if he can help you?',
+        choice2: 'You panic, and run away back to jungle'),
+    Story(
+        storyTitle:
+            'You are trapped in the jungle trying to find a way out, but it is end of your journey as a poisonous snake bites you and you die painfully',
+        choice1: 'Restart',
+        choice2: ''),
+    Story(
+        storyTitle:
+            'He goes inside, you act smart and try to peek in the cabin. You follow the blood trail to the back of cabin and discover one of your friends lying there. As you turn to run, a sharp pain arises in your shoulder and everything goes dark. You have escaped from this world',
+        choice1: 'Restart',
+        choice2: ''),
+    Story(
+        storyTitle:
+            'He gives you sleeping bag, put a bonfire to keep you warm, gives you food and you both bond over anatomy of human body. In morning he takes you out of jungle and promises you to invite for his next \'hunt\'',
+        choice1: 'Restart',
+        choice2: '')
+  ];
 
+  //getStory(), getChoice1() and getChoice2()
+
+  String getStory() => storyData[storyNumber].storyTitle;
+
+  String getChoice1() => storyData[storyNumber].choice1;
+
+  String getChoice2() => storyData[storyNumber].choice2;
+
+  void restart() => storyNumber = 0;
+
+  void nextStory(int choiceNumber) {
+    switch (storyNumber) {
+      case 0:
+        switch (choiceNumber) {
+          case 1:
+            storyNumber = 1;
+            break;
+          case 2:
+            storyNumber = 3;
+            break;
+        }
+        break;
+      case 1:
+        switch (choiceNumber) {
+          case 1:
+            storyNumber = 2;
+            break;
+          case 2:
+            storyNumber = 4;
+            break;
+        }
+        break;
+      case 2:
+        switch (choiceNumber) {
+          case 1:
+            storyNumber = 5;
+            break;
+          case 2:
+            storyNumber = 3;
+            break;
+        }
+        break;
+      case 3:
+        if (choiceNumber == 1) restart();
+        break;
+      case 4:
+        if (choiceNumber == 1) restart();
+        break;
+      case 5:
+        if (choiceNumber == 1) restart();
+        break;
+    }
+  }
+
+  bool buttonShouldBeVisible() {
+    if (storyNumber == 0 || storyNumber == 1 || storyNumber == 2)
+      return true;
+    else
+      return false;
+  }
+}
